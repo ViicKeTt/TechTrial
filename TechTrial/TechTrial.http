@@ -1,0 +1,6 @@
+@TechTrial_HostAddress = http://localhost:5154
+
+GET {{TechTrial_HostAddress}}/candidatos/
+Accept: application/json
+
+###
