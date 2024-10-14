@@ -19,4 +19,9 @@
     </PackageReference>
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\T.Models\T.Models.csproj" />
+    <ProjectReference Include="..\T.Utility\T.Utility.csproj" />
+  </ItemGroup>
+
 </Project>
