@@ -1,4 +1,5 @@
 using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using T.DataAccess.Services.Interfaces;
 using T.Models.DTOs;
@@ -6,6 +7,7 @@ using T.Models.Models;
 
 namespace TechTrial.Controllers
 {
+    [Authorize]
     [ApiController]
     [Route("[controller]")]
     public class CandidatoController : ControllerBase
@@ -23,6 +25,8 @@ namespace TechTrial.Controllers
         /// </summary>
         /// <returns>Los candidatos correspondientes listados.</returns>
         [HttpGet]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> Get()
         {
             return Ok(await _service.Candidato.ListAsync());
@@ -34,8 +38,15 @@ namespace TechTrial.Controllers
         /// <param name="id">ID del candidato a buscar.</param>
         /// <returns>El Candidato correspondiente al ID proporcionado.</returns>
         [HttpGet("{id:int}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> GetById(int id)
         {
+            var candidato = await _service.Candidato.GetByIdAsync(id);
+            if (candidato == null)
+                return NotFound("No se encontró este candidato");
+
             return Ok(await _service.Candidato.GetByIdAsync(id));
         }
         /// <summary>
@@ -44,23 +55,36 @@ namespace TechTrial.Controllers
         /// <param name="candidato">El objeto Candidato que se desea crear.</param>
         /// <returns>El Candidato creado.</returns>
         [HttpPost]
-        public async Task<IActionResult> Post(CandidatoDto candidato)
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status201Created)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public async Task<IActionResult> Post([FromBody] CandidatoDto candidato)
         {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
             var model = _service.Candidato.Add(_mapper.Map<Candidato>(candidato));
             await _service.SaveAsync();
 
-            return Ok(model);
+            return Created();
         }
 
         /// <summary>
         /// Actualiza la información de un candidato existente.
         /// </summary>
         /// <param name="id">ID del candidato a actualizar.</param>
-        /// <param name="candidato">El objeto Candidato con los datos actualizados.</param>
+        /// <param name="model">El objeto Candidato con los datos actualizados.</param>
         /// <returns>Un resultado con los datos del candidato modificados si la actualización fue exitosa.</returns>
         [HttpPut("{id:int}")]
-        public async Task<IActionResult> Put(int id, CandidatoDto model)
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public async Task<IActionResult> Put(int id, [FromBody] CandidatoDto model)
         {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
             var candidato = await _service.Candidato.GetByIdAsync(model.ID);
 
             if (id != model.ID)
@@ -80,6 +104,10 @@ namespace TechTrial.Controllers
         /// </summary>
         /// <param name="id">ID del candidato a eliminar.</param>
         /// <returns>Un resultado con mensaje de confirmación si la eliminación fue exitosa.</returns>
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [HttpDelete("{id:int}")]
         public async Task<IActionResult> Delete(int id)
         {

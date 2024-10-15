@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using T.DataAccess.Data;
 
@@ -11,9 +12,11 @@ using T.DataAccess.Data;
 namespace T.DataAccess.Migrations
 {
     [DbContext(typeof(TechTrialContext))]
-    partial class TechTrialContextModelSnapshot : ModelSnapshot
+    [Migration("20241015230618_Modificando_campos_metricas2")]
+    partial class Modificando_campos_metricas2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

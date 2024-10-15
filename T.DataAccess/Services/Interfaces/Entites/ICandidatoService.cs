@@ -1,9 +1,10 @@
-﻿using T.Models.Models;
+﻿using T.Models.DTOs;
 
 namespace T.DataAccess.Services.Interfaces.Entites
 {
-    public interface ICandidatoService : IRepository<Candidato>
+    public interface IMetricasService
     {
-        void Update(Candidato category);
+        Task<IEnumerable<MetricasDto>> GetMetricasAsync(DateTime fecha);
+        Task<MetricasRequest> AddMetricasAsync(MetricasRequest metricas);
     }
 }

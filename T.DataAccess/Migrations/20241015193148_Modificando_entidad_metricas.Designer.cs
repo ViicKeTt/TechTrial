@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using T.DataAccess.Data;
 
@@ -11,9 +12,11 @@ using T.DataAccess.Data;
 namespace T.DataAccess.Migrations
 {
     [DbContext(typeof(TechTrialContext))]
-    partial class TechTrialContextModelSnapshot : ModelSnapshot
+    [Migration("20241015193148_Modificando_entidad_metricas")]
+    partial class Modificando_entidad_metricas
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -74,13 +77,13 @@ namespace T.DataAccess.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"));
 
-                    b.Property<double>("ConsumoPeticionBytes")
+                    b.Property<double>("ConsumoPeticion")
                         .HasColumnType("float");
 
-                    b.Property<DateTime>("DateUtc")
+                    b.Property<DateTime>("Date")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("Http")
+                    b.Property<string>("HttpCode")
                         .IsRequired()
                         .HasMaxLength(10)
                         .HasColumnType("nvarchar(10)");
@@ -90,7 +93,7 @@ namespace T.DataAccess.Migrations
                         .HasMaxLength(20)
                         .HasColumnType("nvarchar(20)");
 
-                    b.Property<double>("TiempoRespuestaMiliSegundos")
+                    b.Property<double>("TiempoRespuestaSegundos")
                         .HasColumnType("float");
 
                     b.HasKey("ID");

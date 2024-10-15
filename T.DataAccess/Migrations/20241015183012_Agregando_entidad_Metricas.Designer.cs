@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using T.DataAccess.Data;
 
@@ -11,9 +12,11 @@ using T.DataAccess.Data;
 namespace T.DataAccess.Migrations
 {
     [DbContext(typeof(TechTrialContext))]
-    partial class TechTrialContextModelSnapshot : ModelSnapshot
+    [Migration("20241015183012_Agregando_entidad_Metricas")]
+    partial class Agregando_entidad_Metricas
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -74,23 +77,28 @@ namespace T.DataAccess.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"));
 
-                    b.Property<double>("ConsumoPeticionBytes")
+                    b.Property<string>("Action")
+                        .IsRequired()
+                        .HasMaxLength(25)
+                        .HasColumnType("nvarchar(25)");
+
+                    b.Property<double>("ConsumoPeticion")
                         .HasColumnType("float");
 
-                    b.Property<DateTime>("DateUtc")
+                    b.Property<string>("Controller")
+                        .IsRequired()
+                        .HasMaxLength(25)
+                        .HasColumnType("nvarchar(25)");
+
+                    b.Property<DateTime>("Date")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("Http")
+                    b.Property<string>("HttpCode")
                         .IsRequired()
                         .HasMaxLength(10)
                         .HasColumnType("nvarchar(10)");
 
-                    b.Property<string>("Status")
-                        .IsRequired()
-                        .HasMaxLength(20)
-                        .HasColumnType("nvarchar(20)");
-
-                    b.Property<double>("TiempoRespuestaMiliSegundos")
+                    b.Property<double>("TiempoRespuestaSegundos")
                         .HasColumnType("float");
 
                     b.HasKey("ID");

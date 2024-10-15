@@ -8,7 +8,9 @@ namespace T.Models.Profiles
     {
         public CandidatoProfile()
         {
-            // Mapeo de Candidato a CandidatoDto
+            /// <summary>   
+            ///       Mapeo de Candidato a CandidatoDto
+            /// </summary>    
             CreateMap<CandidatoDto, Candidato>().ReverseMap();
         }
 

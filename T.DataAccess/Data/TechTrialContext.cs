@@ -11,5 +11,6 @@ namespace T.DataAccess.Data
         }
 
         public virtual DbSet<Candidato> Candidato { get; set; }
+        public virtual DbSet<Metricas> Metricas { get; set; }
     }
 }
