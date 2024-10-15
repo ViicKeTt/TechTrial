@@ -18,17 +18,31 @@ namespace TechTrial.Controllers
             _mapper = mapper;
         }
 
+        /// <summary>
+        /// Obtiene una lista de todos los candidatos.
+        /// </summary>
+        /// <returns>Los candidatos correspondientes listados.</returns>
         [HttpGet]
         public async Task<IActionResult> Get()
         {
             return Ok(await _service.Candidato.ListAsync());
         }
 
+        /// <summary>
+        /// Obtiene un candidato por su ID.
+        /// </summary>
+        /// <param name="id">ID del candidato a buscar.</param>
+        /// <returns>El Candidato correspondiente al ID proporcionado.</returns>
         [HttpGet("{id:int}")]
         public async Task<IActionResult> GetById(int id)
         {
             return Ok(await _service.Candidato.GetByIdAsync(id));
         }
+        /// <summary>
+        /// Crea un nuevo registro de Candidato.
+        /// </summary>
+        /// <param name="candidato">El objeto Candidato que se desea crear.</param>
+        /// <returns>El Candidato creado.</returns>
         [HttpPost]
         public async Task<IActionResult> Post(CandidatoDto candidato)
         {
@@ -38,6 +52,12 @@ namespace TechTrial.Controllers
             return Ok(model);
         }
 
+        /// <summary>
+        /// Actualiza la información de un candidato existente.
+        /// </summary>
+        /// <param name="id">ID del candidato a actualizar.</param>
+        /// <param name="candidato">El objeto Candidato con los datos actualizados.</param>
+        /// <returns>Un resultado con los datos del candidato modificados si la actualización fue exitosa.</returns>
         [HttpPut("{id:int}")]
         public async Task<IActionResult> Put(int id, CandidatoDto model)
         {
@@ -54,6 +74,12 @@ namespace TechTrial.Controllers
             await _service.SaveAsync();
             return Ok(model);
         }
+
+        /// <summary>
+        /// Elimina un candidato por su ID.
+        /// </summary>
+        /// <param name="id">ID del candidato a eliminar.</param>
+        /// <returns>Un resultado con mensaje de confirmación si la eliminación fue exitosa.</returns>
         [HttpDelete("{id:int}")]
         public async Task<IActionResult> Delete(int id)
         {
