@@ -91,5 +91,131 @@ Update-Database
 ```
 3. Confirma que el proyecto correcto esté seleccionado en el combo box de la consola (T.DataAccess).
 
-## Con estos pasos deberías poder actualizar tu base de datos con las migraciones aplicadas correctamente y poder utilizar la APi de TechTrial.
+##### Con estos pasos deberías poder actualizar tu base de datos con las migraciones aplicadas correctamente y poder utilizar la APi de TechTrial.
 
+# Uso de la Api
+
+## Gestión de Candidatos
+Este proyecto expone un API RESTful para gestionar las operaciones CRUD para la entidad Candidato y para registrar métricas de consumo del API. A continuación se detallan los endpoints disponibles, sus descripciones, y cómo interactuar con ellos.
+
+### Entidad Candidato
+
+La entidad Candidato representa a un solicitante que aplica para un puesto de trabajo. Los atributos principales de la entidad son:
+
+- ID: Identificador único.
+- Nombres: Nombre del candidato.
+- Apellidos: Apellido del candidato.
+- Correo Electrónico: Email del candidato.
+- Teléfono: Número telefónico de contacto.
+- Fecha de nacimiento: Fecha de nacimiento del candidato.
+- Puesto Aplicado: Nombre del puesto al cual está aplicando.
+- Fecha de aplicación Puesto: Fecha en que se realizó la aplicación.
+
+### Endpoints Disponibles
+
+#### Crear un Candidato
+Método: **POST**
+Ruta: **/candidatos**
+
+##### Descripción
+Crea un nuevo registro para un candidato.
+
+##### Ejemplo de Solicitud
+```bash
+{
+    "id": 0,
+    "nombres": "Juan",
+    "apellidos": "Pérez",
+    "correoElectronico": "juan.perez@example.com", 
+    "fechaNacimiento": "1990-01-01",
+    "telefono": "+123456789",
+    "fechaAplicacion":  "2024-10-10",
+    "puestoAplicado": "Desarrollador Web"
+} 
+```
+Respuesta Exitosa (Código 201 - Created) 
+
+#### Obtener todos los Candidatos
+Método: **GET**
+Ruta: **/candidatos**
+
+##### Descripción 
+Obtiene una lista de todos los candidatos registrados.
+
+##### Ejemplo de Solicitud
+```bash
+[
+    {
+        "id": 0,
+        "nombres": "Juan",
+        "apellidos": "Pérez",
+        "correoElectronico": "juan.perez@example.com", 
+        "fechaNacimiento": "1990-01-01",
+        "telefono": "+123456789",
+        "fechaAplicacion":  "2024-10-10",
+        "puestoAplicado": "Desarrollador Web"
+    } 
+]
+```
+
+#### Obtener un Candidato por ID
+Método: **GET**
+Ruta: **/candidatos/{id}**
+
+##### Descripción 
+Obtiene la información de un candidato específico por su ID.
+
+##### Parámetros de Ruta
+- id: Identificador único del candidato.
+
+Respuesta Exitosa (Código 200 - OK)
+
+```bash
+[
+    {
+        "id": 0,
+        "nombres": "Juan",
+        "apellidos": "Pérez",
+        "correoElectronico": "juan.perez@example.com", 
+        "fechaNacimiento": "1990-01-01",
+        "telefono": "+123456789",
+        "fechaAplicacion":  "2024-10-10",
+        "puestoAplicado": "Desarrollador Web"
+    } 
+]
+```
+
+#### Actualizar un Candidato 
+Método: **PUT**
+Ruta: **/candidatos/{id}**
+
+##### Descripción 
+Actualiza la información de un candidato existente.
+
+##### Ejemplo de Solicitud
+```bash
+[
+    {
+        "id": 0,
+        "nombres": "Juan",
+        "apellidos": "Pérez",
+        "correoElectronico": "juan.perez@example.com", 
+        "fechaNacimiento": "1990-01-01",
+        "telefono": "+123456789",
+        "fechaAplicacion":  "2024-10-10",
+        "puestoAplicado": "Desarrollador Web"
+    } 
+]
+```
+
+Respuesta Exitosa (Código 200 - OK)
+
+
+#### Eliminar un Candidato
+Método: **DELETE**
+Ruta: **/candidatos/{id}**
+
+##### Descripción 
+Elimina un candidato del sistema por su ID.
+
+Respuesta Exitosa (Código 200 - OK)
